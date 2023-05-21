@@ -1,15 +1,38 @@
 import "./style.css";
 import { LockOutlined, MailOutlined, UploadOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, DatePicker, Form, Input, Radio, Upload } from "antd";
+import { Button, DatePicker, Form, Input, Radio, Upload, message } from "antd";
+import { useRef, useState } from "react";
 
 const RegForm = ({ setLoginFormVisibility }) => {
+    const [file, setFile] = useState(null);
+    const uploadInputRef = useRef();
+
     const onFinish = (values) => {
         console.log("Received values of form: ", values);
     };
 
-    const handleUpload = (file) => {
-        // Здесь вы можете выполнить дополнительные операции с загруженным файлом
-        console.log("Uploaded file:", file.fileList);
+    const handleUpload = (event) => {
+        const file = event.target.files[0];
+        setFile(file);
+        console.log("Uploaded file:", file);
+    };
+
+    const uploadProps = {
+        name: "file",
+        action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
+        headers: {
+            authorization: "authorization-text",
+        },
+        onChange(info) {
+            if (info.file.status !== "uploading") {
+                console.log(info.file, info.fileList);
+            }
+            if (info.file.status === "done") {
+                message.success(`${info.file.name} file uploaded successfully`);
+            } else if (info.file.status === "error") {
+                message.error(`${info.file.name} file upload failed.`);
+            }
+        },
     };
 
     return (
@@ -45,9 +68,19 @@ const RegForm = ({ setLoginFormVisibility }) => {
                 </Form.Item>
 
                 <Form.Item name="photo">
-                    <Upload beforeUpload={handleUpload}>
-                        <Button icon={<UploadOutlined />}>Upload photo</Button>
-                    </Upload>
+                    <>
+                        <input
+                            style={{ visibility: "hidden", position: "absolute", left: "-1000px" }}
+                            type="file"
+                            accept="image/jpeg, image/png"
+                            onChange={handleUpload}
+                            ref={uploadInputRef}
+                        />
+                        <Button icon={<UploadOutlined />} onClick={() => uploadInputRef.current.click()}>
+                            Upload photo
+                        </Button>
+                        {file && <p style={{ fontSize: "12px" }}>{file.name}</p>}
+                    </>
                 </Form.Item>
 
                 <Form.Item>
