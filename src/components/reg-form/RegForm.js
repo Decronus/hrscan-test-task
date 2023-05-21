@@ -67,20 +67,18 @@ const RegForm = ({ setLoginFormVisibility }) => {
                     <DatePicker placeholder="Date of birth" />
                 </Form.Item>
 
-                <Form.Item name="photo">
-                    <>
-                        <input
-                            style={{ visibility: "hidden", position: "absolute", left: "-1000px" }}
-                            type="file"
-                            accept="image/jpeg, image/png"
-                            onChange={handleUpload}
-                            ref={uploadInputRef}
-                        />
-                        <Button icon={<UploadOutlined />} onClick={() => uploadInputRef.current.click()}>
-                            Upload photo
-                        </Button>
-                        {file && <p style={{ fontSize: "12px" }}>{file.name}</p>}
-                    </>
+                <Form.Item>
+                    <input
+                        style={{ visibility: "hidden", position: "absolute", left: "-1000px" }}
+                        type="file"
+                        accept="image/jpeg, image/png"
+                        onChange={handleUpload}
+                        ref={uploadInputRef}
+                    />
+                    <Button icon={<UploadOutlined />} onClick={() => uploadInputRef.current.click()}>
+                        Upload photo
+                    </Button>
+                    {file && <p style={{ fontSize: "12px" }}>{file.name}</p>}
                 </Form.Item>
 
                 <Form.Item>
