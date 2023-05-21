@@ -1,4 +1,4 @@
-.login-form-wrap {
+.reg-form-wrap {
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -24,4 +24,8 @@
 .submit-button-wrap-text p:hover {
     color: rgb(212, 73, 220);
     cursor: pointer;
+}
+
+.reg-form-radio .ant-form-item-control-input {
+    min-height: 0;
 }
