@@ -1,3 +1,4 @@
+const { UserOutlined } = require("@ant-design/icons");
 const User = require("../models/user");
 
 const getUsers = (request, response) => {
@@ -15,12 +16,14 @@ const getUserById = (request, response) => {
         .then((user) => {
             response.status(200).send(user);
         })
-        .catch((error) => response.status(500).send("Пользователь с таким ID не найден"));
+        .catch(() => response.status(404).send("User not found"));
 };
 
-const createUser = (request, response) => {
-    if (!request.body.name || !request.body.surname || !request.body.username) {
-        response.status(500).send("Указаны не все обязательные свойства");
+const createUser = async (request, response) => {
+    const { email } = request.body;
+    const user = await User.findOne({ email: email });
+    if (user) {
+        response.status(500).send("User with this email already exists");
         return;
     }
 
@@ -28,7 +31,7 @@ const createUser = (request, response) => {
         .then((user) => {
             response.status(201).send(user);
         })
-        .catch((error) => response.status(500).send("Произошла ошибка сервера при выполнении запроса"));
+        .catch(() => response.status(500).send("Internal server error"));
 };
 
 const updateUser = (request, response) => {
@@ -51,24 +54,9 @@ const updateUser = (request, response) => {
         .catch((error) => response.status(500).send("Произошла ошибка сервера при выполнении запроса"));
 };
 
-const deleteUser = (request, response) => {
-    const { id } = request.params;
-
-    return User.findByIdAndDelete(id)
-        .then((user) => {
-            if (user) {
-                response.status(200).send(user);
-            } else {
-                response.status(404).send("Пользователь с таким ID не найден");
-            }
-        })
-        .catch((error) => response.status(500).send("Произошла ошибка сервера при выполнении запроса"));
-};
-
 module.exports = {
     getUsers,
     getUserById,
     createUser,
     updateUser,
-    deleteUser,
 };

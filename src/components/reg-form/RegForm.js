@@ -2,6 +2,7 @@ import "./style.css";
 import { LockOutlined, MailOutlined, UploadOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, DatePicker, Form, Input, Radio, Upload, message } from "antd";
 import { useRef, useState } from "react";
+import Queries from "../../services/queries.service";
 
 const RegForm = ({ setLoginFormVisibility }) => {
     const [file, setFile] = useState(null);
@@ -9,30 +10,33 @@ const RegForm = ({ setLoginFormVisibility }) => {
 
     const onFinish = (values) => {
         console.log("Received values of form: ", values);
+
+        if (values.password !== values.repeatPassword) {
+            message.error("Пароли не совпадают");
+            return;
+        }
+
+        if (values.password.length < 8) {
+            message.error("Пароль должен быть длиннее 8 символов");
+            return;
+        }
+
+        const body = {
+            email: values.email,
+            password: values.password,
+            name: values.name,
+            gender: values.gender,
+            birthday: values.birthday,
+        };
+
+        Queries.regUser(body)
+            .then((res) => console.log(res.data))
+            .catch((error) => console.error("Registration error: ", error));
     };
 
     const handleUpload = (event) => {
         const file = event.target.files[0];
         setFile(file);
-        console.log("Uploaded file:", file);
-    };
-
-    const uploadProps = {
-        name: "file",
-        action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
-        headers: {
-            authorization: "authorization-text",
-        },
-        onChange(info) {
-            if (info.file.status !== "uploading") {
-                console.log(info.file, info.fileList);
-            }
-            if (info.file.status === "done") {
-                message.success(`${info.file.name} file uploaded successfully`);
-            } else if (info.file.status === "error") {
-                message.error(`${info.file.name} file upload failed.`);
-            }
-        },
     };
 
     return (
@@ -52,7 +56,7 @@ const RegForm = ({ setLoginFormVisibility }) => {
                     <Input prefix={<LockOutlined />} type="password" placeholder="Repeat password" />
                 </Form.Item>
 
-                <Form.Item name="name" rules={[{ required: true, message: "Please input name!" }]}>
+                <Form.Item name="name">
                     <Input prefix={<UserOutlined />} placeholder="Name" />
                 </Form.Item>
 
@@ -63,7 +67,7 @@ const RegForm = ({ setLoginFormVisibility }) => {
                     </Radio.Group>
                 </Form.Item>
 
-                <Form.Item name="birthdate" rules={[{ required: true, message: "Please input date of birth!" }]}>
+                <Form.Item name="birthdate">
                     <DatePicker placeholder="Date of birth" />
                 </Form.Item>
 
