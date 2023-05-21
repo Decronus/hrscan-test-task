@@ -1,0 +1,19 @@
+.header-block {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #dddddd;
+    width: 100%;
+    height: 60px;
+    padding: 0 20px;
+}
+
+.header-menu {
+    display: flex;
+    gap: 20px;
+}
+
+.header-menu p:hover {
+    color: rgb(73, 73, 229);
+    cursor: pointer;
+}

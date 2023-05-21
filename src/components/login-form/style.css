@@ -1,0 +1,27 @@
+.login-form-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 300px;
+}
+
+.login-button-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.login-button-wrap-text {
+    display: flex;
+    gap: 5px;
+}
+
+.login-button-wrap-text p {
+    color: rgb(38, 38, 206);
+    cursor: pointer;
+}
+
+.login-button-wrap-text p:hover {
+    color: rgb(212, 73, 220);
+    cursor: pointer;
+}
