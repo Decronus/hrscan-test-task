@@ -2,12 +2,12 @@ import "./style.css";
 import { API_URL } from "../../utils/constants";
 import { getAgeString } from "../../utils/functions/age";
 
-const ProfileCard = ({ user }) => {
+const AccountCard = ({ user }) => {
     return (
-        <div className="profile-card-wrap">
+        <div className="account-card-wrap">
             <div>
                 <div
-                    className="profile-card-avatar"
+                    className="account-card-avatar"
                     style={{
                         backgroundImage: user?.photoLink
                             ? `url(${API_URL}${user?.photoLink})`
@@ -15,15 +15,15 @@ const ProfileCard = ({ user }) => {
                     }}
                 />
             </div>
-            <div className="profile-card-data">
-                <p className="profile-card-name">{user?.name || user?.email}</p>
-                <div className="profile-card-age-gender">
-                    {user?.birthdate && <p className="profile-card-age">{getAgeString(user.birthdate)},</p>}
-                    <p className="profile-card-gender">{user?.gender}</p>
+            <div className="account-card-data">
+                <p className="account-card-name">{user?.name || user?.email}</p>
+                <div className="account-card-age-gender">
+                    {user?.birthdate && <p className="account-card-age">{getAgeString(user.birthdate)},</p>}
+                    <p className="account-card-gender">{user?.gender}</p>
                 </div>
             </div>
         </div>
     );
 };
 
-export default ProfileCard;
+export default AccountCard;

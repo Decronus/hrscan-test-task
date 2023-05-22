@@ -9,3 +9,10 @@
     gap: 10px;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 }
+
+.account-page-content {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}

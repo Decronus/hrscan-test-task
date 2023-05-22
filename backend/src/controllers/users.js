@@ -49,24 +49,15 @@ const createUser = async (req, res) => {
         .catch(() => res.status(500).send("Internal server error"));
 };
 
-const updateUser = (req, res) => {
+const updateUser = async (req, res) => {
+    console.log(res.body);
     const { id } = req.params;
+    const user = await User.findByIdAndUpdate(id, { ...req.body }, { new: true });
 
-    return User.findByIdAndUpdate(id, { ...req.body })
-        .then((user) => {
-            if (user) {
-                const updatedUser = JSON.parse(JSON.stringify(user));
-
-                for (let key in req.body) {
-                    updatedUser[key] = req.body[key];
-                    console.log(key);
-                }
-                res.status(200).send(updatedUser);
-            } else {
-                res.status(404).send("Пользователь с таким ID не найден");
-            }
-        })
-        .catch(() => res.status(500).send("Произошла ошибка сервера при выполнении запроса"));
+    if (!user) {
+        res.status(404).send("User with this id does not exists");
+    }
+    res.status(200).send(user);
 };
 
 const uploadPhoto = (req, res) => {

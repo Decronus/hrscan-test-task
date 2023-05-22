@@ -1,5 +1,5 @@
-.profile-card-wrap {
-    min-width: 400px;
+.account-card-wrap {
+    min-width: 300px;
     display: flex;
     align-items: center;
     gap: 14px;
@@ -9,7 +9,7 @@
     overflow: hidden;
 }
 
-.profile-card-avatar {
+.account-card-avatar {
     width: 60px;
     height: 60px;
     background-size: cover;
@@ -18,22 +18,22 @@
     border-radius: 50%;
 }
 
-.profile-card-data {
+.account-card-data {
     display: flex;
     flex-direction: column;
     gap: 6px;
 }
 
-.profile-card-gender,
-.profile-card-age {
+.account-card-gender,
+.account-card-age {
     opacity: 0.4;
 }
 
-.profile-card-name {
+.account-card-name {
     word-break: break-all;
 }
 
-.profile-card-age-gender {
+.account-card-age-gender {
     display: flex;
     gap: 8px;
 }
