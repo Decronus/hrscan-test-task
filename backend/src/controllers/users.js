@@ -33,6 +33,7 @@ const createUser = async (req, res) => {
     }
     return User.create({ ...req.body })
         .then((user) => {
+            user.password = undefined;
             res.status(201).send(user);
         })
         .catch(() => res.status(500).send("Internal server error"));
@@ -45,6 +46,7 @@ const updateUser = async (req, res) => {
     if (!user) {
         res.status(404).send("User with this id does not exists");
     }
+    user.password = undefined;
     res.status(200).send(user);
 };
 
@@ -55,6 +57,7 @@ const uploadPhoto = async (req, res) => {
     if (!user) {
         res.status(404).send("User with this id does not exists");
     }
+    user.password = undefined;
     res.status(200).send(user);
 };
 

@@ -16,3 +16,9 @@
     align-items: flex-start;
     flex-wrap: wrap;
 }
+
+.account-page-forms {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}

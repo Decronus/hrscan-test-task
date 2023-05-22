@@ -1,5 +1,6 @@
 import AccountCard from "../components/account-card/AccountCard";
 import EditAccountForm from "../components/edit-account-form/EditAccountForm";
+import EditPasswordForm from "../components/edit-password-form /EditPasswordForm";
 
 const Account = ({ user, setUser }) => {
     return (
@@ -8,7 +9,10 @@ const Account = ({ user, setUser }) => {
 
             <div className="account-page-content">
                 <AccountCard user={user} />
-                <EditAccountForm user={user} setUser={setUser} />
+                <div className="account-page-forms">
+                    <EditAccountForm user={user} setUser={setUser} />
+                    <EditPasswordForm user={user} setUser={setUser} />
+                </div>
             </div>
         </div>
     );

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Queries from "../services/queries.service";
 import UserCard from "../components/user-card/UserCard";
 
-const People = () => {
+const People = ({ user }) => {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
@@ -18,9 +18,11 @@ const People = () => {
             <h3>People</h3>
 
             <div className="people-page-users-wrap">
-                {users?.map((el) => {
-                    return <UserCard key={el._id} user={el} />;
-                })}
+                {users
+                    ?.filter((el) => el.email !== user.email)
+                    .map((el) => {
+                        return <UserCard key={el._id} user={el} />;
+                    })}
             </div>
         </div>
     );
