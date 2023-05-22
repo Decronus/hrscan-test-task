@@ -5,8 +5,8 @@ class Queries {
         return axiosInstance.get("users");
     }
 
-    updateUser(id) {
-        return axiosInstance.patch(`users/${id}/update`);
+    updateUser(id, body) {
+        return axiosInstance.patch(`users/${id}/update`, body);
     }
 
     regUser(body) {

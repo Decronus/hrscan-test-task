@@ -4,19 +4,23 @@ import { Button, Form, Input, message } from "antd";
 import { useRef, useState } from "react";
 import Queries from "../../services/queries.service";
 
-const EditAccountForm = ({ user }) => {
+const EditAccountForm = ({ user, setUser }) => {
     const [editData] = Form.useForm();
     console.log(editData);
     const [file, setFile] = useState(null);
     const uploadInputRef = useRef();
 
     const updateUser = (values) => {
+        console.log(values.name);
         if (values.name && values.name !== user.name) {
             const body = {
                 name: values.name,
             };
             Queries.updateUser(user._id, body)
-                .then(() => editData.resetFields())
+                .then((user) => {
+                    updateUserState(user.data);
+                    editData.resetFields();
+                })
                 .catch((error) => {
                     message.error(error.response?.data);
                 });
@@ -25,11 +29,16 @@ const EditAccountForm = ({ user }) => {
         if (file) {
             const form = new FormData();
             form.append("file", file);
-            Queries.uploadPhoto(user._id, form).then(() => {
+            Queries.uploadPhoto(user._id, form).then((user) => {
+                updateUserState(user.data);
                 setFile(null);
-                message.success("Account data successfully updated");
             });
         }
+    };
+
+    const updateUserState = (user) => {
+        setUser(user);
+        localStorage.setItem("user", JSON.stringify(user));
     };
 
     const handleUpload = (event) => {
@@ -41,7 +50,13 @@ const EditAccountForm = ({ user }) => {
         <div className="reg-form-wrap">
             <p>Edit account data</p>
 
-            <Form name="editData" className="reg-form" initialValues={{ remember: true }} onFinish={updateUser}>
+            <Form
+                form={editData}
+                name="editData"
+                className="reg-form"
+                initialValues={{ remember: true }}
+                onFinish={updateUser}
+            >
                 <Form.Item name="name">
                     <Input prefix={<UserOutlined />} placeholder="Name" />
                 </Form.Item>

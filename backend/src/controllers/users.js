@@ -8,16 +8,6 @@ const getAllUsers = (req, res) => {
         .catch(() => res.status(500).send("Internal server error"));
 };
 
-// const getUserById = (req, res) => {
-//     const { id } = req.params;
-
-//     return User.findById(id)
-//         .then((user) => {
-//             res.status(200).send(user);
-//         })
-//         .catch(() => res.status(404).send("User not found"));
-// };
-
 const loginUser = async (req, res) => {
     const { email } = req.body;
     const { password } = req.body;
@@ -41,7 +31,6 @@ const createUser = async (req, res) => {
         res.status(409).send("User with this email already exists");
         return;
     }
-
     return User.create({ ...req.body })
         .then((user) => {
             res.status(201).send(user);
@@ -50,22 +39,23 @@ const createUser = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-    console.log(res.body);
+    console.log(req.body);
     const { id } = req.params;
-    const user = await User.findByIdAndUpdate(id, { ...req.body }, { new: true });
-
+    const user = await User.findByIdAndUpdate(id, req.body, { new: true });
     if (!user) {
         res.status(404).send("User with this id does not exists");
     }
     res.status(200).send(user);
 };
 
-const uploadPhoto = (req, res) => {
+const uploadPhoto = async (req, res) => {
     const id = req.params.id;
     const update = { photoLink: req.file.path };
-    return User.findByIdAndUpdate(id, update)
-        .then(() => res.status(200).send("File uploaded"))
-        .catch(() => res.status(500).send("Internal server error"));
+    const user = await User.findByIdAndUpdate(id, update, { new: true });
+    if (!user) {
+        res.status(404).send("User with this id does not exists");
+    }
+    res.status(200).send(user);
 };
 
 module.exports = {
