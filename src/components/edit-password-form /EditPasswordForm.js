@@ -25,6 +25,7 @@ const EditPasswordForm = ({ user, setUser }) => {
             .then((user) => {
                 updateUserState(user.data);
                 editPassword.resetFields();
+                message.success("Password successefully updated");
             })
             .catch((error) => {
                 message.error(error.response?.data);

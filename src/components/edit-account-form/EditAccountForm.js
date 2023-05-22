@@ -6,15 +6,14 @@ import Queries from "../../services/queries.service";
 
 const EditAccountForm = ({ user, setUser }) => {
     const [editData] = Form.useForm();
-    console.log(editData);
     const [file, setFile] = useState(null);
     const uploadInputRef = useRef();
 
     const updateUser = (values) => {
-        console.log(values.name);
-        if (values.name && values.name !== user.name) {
+        const { name } = values;
+        if (name && name !== user.name) {
             const body = {
-                name: values.name,
+                name: name,
             };
             Queries.updateUser(user._id, body)
                 .then((user) => {

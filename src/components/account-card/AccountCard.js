@@ -17,10 +17,9 @@ const AccountCard = ({ user }) => {
             </div>
             <div className="account-card-data">
                 <p className="account-card-name">{user?.name || user?.email}</p>
-                <div className="account-card-age-gender">
-                    {user?.birthdate && <p className="account-card-age">{getAgeString(user.birthdate)},</p>}
-                    <p className="account-card-gender">{user?.gender}</p>
-                </div>
+                {user?.birthdate && <p className="account-card-age">{getAgeString(user.birthdate)}</p>}
+                <p className="account-card-gender">{user?.gender}</p>
+                <p className="account-card-birthdate">{user?.birthdate}</p>
             </div>
         </div>
     );

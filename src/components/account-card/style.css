@@ -24,8 +24,9 @@
     gap: 6px;
 }
 
+.account-card-age,
 .account-card-gender,
-.account-card-age {
+.account-card-birthdate {
     opacity: 0.4;
 }
 
@@ -33,7 +34,8 @@
     word-break: break-all;
 }
 
-.account-card-age-gender {
+.account-card-add-info {
     display: flex;
+    flex-direction: column;
     gap: 8px;
 }

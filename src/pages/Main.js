@@ -12,7 +12,7 @@ const Main = ({ user, setUser }) => {
         <div className="main-page" style={{ width: "100%", display: "flex", justifyContent: "center" }}>
             {user?.email ? (
                 <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-                    <p>You are logged in as {user.email}</p>
+                    <p>You are logged in as {user?.email}</p>
                     <Button type="primary" onClick={() => navigate("/account")}>
                         To account
                     </Button>

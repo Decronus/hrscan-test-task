@@ -19,7 +19,7 @@ const People = ({ user }) => {
 
             <div className="people-page-users-wrap">
                 {users
-                    ?.filter((el) => el.email !== user.email)
+                    ?.filter((el) => el.email !== user?.email)
                     .map((el) => {
                         return <UserCard key={el._id} user={el} />;
                     })}

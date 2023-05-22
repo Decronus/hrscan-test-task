@@ -32,9 +32,9 @@ const RegForm = ({ setLoginFormVisibility }) => {
                 if (file) {
                     const form = new FormData();
                     form.append("file", file);
-                    Queries.uploadPhoto(res.data._id, form).then(() => {
-                        successRegNotif().catch((error) => console.error("Ошибка при загрузке фото: ", error));
-                    });
+                    Queries.uploadPhoto(res.data._id, form)
+                        .then(() => successRegNotif())
+                        .catch((error) => console.error("Ошибка при загрузке фото: ", error));
                 } else {
                     successRegNotif();
                 }
