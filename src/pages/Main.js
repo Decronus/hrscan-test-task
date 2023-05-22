@@ -9,9 +9,9 @@ const Main = ({ user, setUser }) => {
     const navigate = useNavigate();
 
     return (
-        <div className="main-page" style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+        <div className="main-page">
             {user?.email ? (
-                <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+                <div className="main-page-logged">
                     <p>You are logged in as {user?.email}</p>
                     <Button type="primary" onClick={() => navigate("/account")}>
                         To account

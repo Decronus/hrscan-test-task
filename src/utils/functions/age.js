@@ -8,7 +8,6 @@ const calculateAge = (date) => {
     if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
         age--;
     }
-    console.log("age", date);
     return age;
 };
 

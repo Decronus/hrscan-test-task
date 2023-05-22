@@ -3,6 +3,18 @@
     width: 100%;
 }
 
+.main-page {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.main-page-logged {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
 .people-page-users-wrap {
     width: 100%;
     display: grid;
