@@ -1,22 +1,23 @@
 import { Button } from "antd";
 import "./style.css";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Header = ({ user, setUser }) => {
     const navigate = useNavigate();
+    const location = useLocation();
 
     const logout = () => {
         localStorage.removeItem("user");
         setUser(undefined);
-        navigate("/");
+        navigate(location.pathname);
     };
 
     return (
         <header className="header-block">
             <nav className="header-menu">
                 <p onClick={() => navigate("/")}>Main</p>
-                <p onClick={() => navigate("/people")}>Accounts</p>
-                <p onClick={() => navigate("/account")}>Profile</p>
+                <p onClick={() => navigate("/people")}>People</p>
+                <p onClick={() => navigate("/account")}>Account</p>
             </nav>
 
             {user && (

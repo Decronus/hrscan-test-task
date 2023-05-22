@@ -2,14 +2,18 @@ import "./style.css";
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
 import { Button, Form, Input, message } from "antd";
 import Queries from "../../services/queries.service";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = ({ setLoginFormVisibility, setUser }) => {
+    const navigate = useNavigate();
+
     const loginUser = (values) => {
         Queries.loginUser(values)
             .then((res) => {
                 const user = res.data;
                 localStorage.setItem("user", JSON.stringify(user));
                 setUser(user);
+                navigate("/account");
             })
             .catch((error) => message.error(error.response.data));
     };
