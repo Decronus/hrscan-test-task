@@ -1,0 +1,39 @@
+.profile-card-wrap {
+    min-width: 400px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border: 1px solid #dddddd;
+    border-radius: 10px;
+    padding: 12px 12px;
+    overflow: hidden;
+}
+
+.profile-card-avatar {
+    width: 60px;
+    height: 60px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 50%;
+}
+
+.profile-card-data {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.profile-card-gender,
+.profile-card-age {
+    opacity: 0.4;
+}
+
+.profile-card-name {
+    word-break: break-all;
+}
+
+.profile-card-age-gender {
+    display: flex;
+    gap: 8px;
+}

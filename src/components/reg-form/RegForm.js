@@ -10,13 +10,10 @@ const RegForm = ({ setLoginFormVisibility }) => {
     const uploadInputRef = useRef();
 
     const regUser = (values) => {
-        console.log("Received values of form: ", values);
-
         if (values.password !== values.repeatPassword) {
             message.error("Passwords do not match");
             return;
         }
-
         if (values.password.length < 8) {
             message.error("Password must be longer than 8 characters");
             return;
@@ -32,25 +29,30 @@ const RegForm = ({ setLoginFormVisibility }) => {
 
         Queries.regUser(body)
             .then((res) => {
-                console.log(res.data);
-
                 if (file) {
                     const form = new FormData();
                     form.append("file", file);
-                    Queries.uploadPhoto(res.data._id, form);
+                    Queries.uploadPhoto(res.data._id, form).then(() => {
+                        successRegNotif().catch((error) => console.error("Ошибка при загрузке фото: ", error));
+                    });
+                } else {
+                    successRegNotif();
                 }
             })
             .catch((error) => {
                 message.error(error.response?.data);
-                console.log(error);
             });
+    };
+
+    const successRegNotif = () => {
+        message.success("You have successfully registered");
+        setLoginFormVisibility(true);
     };
 
     const handleUpload = (event) => {
         const file = event.target.files[0];
         setFile(file);
     };
-    console.log(birthdate);
 
     return (
         <div className="reg-form-wrap">

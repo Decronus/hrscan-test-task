@@ -12,7 +12,7 @@ export const AppRoutes = ({ user, setUser }) => {
             <Route path="/people" element={<People />} errorElement={<NotFound />} />
 
             <Route element={<ProtectedRoute user={user} />} errorElement={<NotFound />}>
-                <Route path="/account" element={<Account />} errorElement={<NotFound />} />
+                <Route path="/account" element={<Account user={user} />} errorElement={<NotFound />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />
