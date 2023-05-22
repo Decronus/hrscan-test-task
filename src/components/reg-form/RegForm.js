@@ -1,6 +1,6 @@
 import "./style.css";
 import { LockOutlined, MailOutlined, UploadOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, DatePicker, Form, Input, Radio, Upload, message } from "antd";
+import { Button, DatePicker, Form, Input, Radio, message } from "antd";
 import { useRef, useState } from "react";
 import Queries from "../../services/queries.service";
 
@@ -8,16 +8,16 @@ const RegForm = ({ setLoginFormVisibility }) => {
     const [file, setFile] = useState(null);
     const uploadInputRef = useRef();
 
-    const onFinish = (values) => {
+    const regUser = (values) => {
         console.log("Received values of form: ", values);
 
         if (values.password !== values.repeatPassword) {
-            message.error("Пароли не совпадают");
+            message.error("Passwords do not match");
             return;
         }
 
         if (values.password.length < 8) {
-            message.error("Пароль должен быть длиннее 8 символов");
+            message.error("Password must be longer than 8 characters");
             return;
         }
 
@@ -31,7 +31,10 @@ const RegForm = ({ setLoginFormVisibility }) => {
 
         Queries.regUser(body)
             .then((res) => console.log(res.data))
-            .catch((error) => console.error("Registration error: ", error));
+            .catch((error) => {
+                message.error(error.response.data);
+                console.log(error);
+            });
     };
 
     const handleUpload = (event) => {
@@ -43,7 +46,7 @@ const RegForm = ({ setLoginFormVisibility }) => {
         <div className="reg-form-wrap">
             <p>Sign up</p>
 
-            <Form name="reg" className="reg-form" initialValues={{ remember: true }} onFinish={onFinish}>
+            <Form name="reg" className="reg-form" initialValues={{ remember: true }} onFinish={regUser}>
                 <Form.Item name="email" rules={[{ required: true, message: "Please input email!" }]}>
                     <Input prefix={<MailOutlined />} placeholder="Email" />
                 </Form.Item>

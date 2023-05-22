@@ -1,17 +1,24 @@
 import "./style.css";
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, message } from "antd";
+import Queries from "../../services/queries.service";
 
-const LoginForm = ({ setLoginFormVisibility }) => {
-    const onFinish = (values) => {
-        console.log("Received values of form: ", values);
+const LoginForm = ({ setLoginFormVisibility, setUser }) => {
+    const loginUser = (values) => {
+        Queries.loginUser(values)
+            .then((res) => {
+                const user = res.data;
+                localStorage.setItem("user", JSON.stringify(user));
+                setUser(user);
+            })
+            .catch((error) => message.error(error.response.data));
     };
 
     return (
         <div className="login-form-wrap">
             <p>Log in</p>
 
-            <Form name="login" className="login-form" initialValues={{ remember: true }} onFinish={onFinish}>
+            <Form name="login" className="login-form" initialValues={{ remember: true }} onFinish={loginUser}>
                 <Form.Item name="email" rules={[{ required: true, message: "Please input email!" }]}>
                     <Input prefix={<MailOutlined />} placeholder="Email" />
                 </Form.Item>

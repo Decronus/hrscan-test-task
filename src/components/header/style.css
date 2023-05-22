@@ -17,3 +17,9 @@
     color: rgb(73, 73, 229);
     cursor: pointer;
 }
+
+.header-logout-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}

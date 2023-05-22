@@ -1,4 +1,3 @@
-const { UserOutlined } = require("@ant-design/icons");
 const User = require("../models/user");
 
 const getUsers = (request, response) => {
@@ -19,11 +18,27 @@ const getUserById = (request, response) => {
         .catch(() => response.status(404).send("User not found"));
 };
 
+const loginUser = async (request, response) => {
+    const { email } = request.body;
+    const { password } = request.body;
+    const user = await User.findOne({ email: email });
+    if (!user) {
+        response.status(500).send("User with this email does not exists");
+        return;
+    }
+    if (user.password !== password) {
+        response.status(500).send("Incorrect password");
+        return;
+    }
+    user.password = undefined;
+    response.status(200).send(user);
+};
+
 const createUser = async (request, response) => {
     const { email } = request.body;
     const user = await User.findOne({ email: email });
     if (user) {
-        response.status(500).send("User with this email already exists");
+        response.status(409).send("User with this email already exists");
         return;
     }
 
@@ -58,5 +73,6 @@ module.exports = {
     getUsers,
     getUserById,
     createUser,
+    loginUser,
     updateUser,
 };
