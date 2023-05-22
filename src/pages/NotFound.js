@@ -8,7 +8,7 @@ const NotFound = () => {
         <Result
             status="404"
             title="404"
-            subTitle="Извините, такой страницы не существует"
+            subTitle="Sorry, page does not exists"
             extra={
                 <Button type="primary" onClick={() => navigate("/")}>
                     На главную

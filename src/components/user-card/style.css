@@ -1,0 +1,33 @@
+.user-card-wrap {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border: 1px solid #dddddd;
+    border-radius: 10px;
+    min-height: 80px;
+    padding: 12px 12px;
+    overflow: hidden;
+}
+
+.user-card-avatar {
+    width: 60px;
+    height: 60px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 50%;
+}
+
+.user-card-data {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.user-card-age {
+    opacity: 0.4;
+}
+
+.user-card-name {
+    word-break: break-all;
+}

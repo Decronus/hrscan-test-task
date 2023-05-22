@@ -6,7 +6,7 @@ const Main = ({ setUser }) => {
     const [loginFormVisibility, setLoginFormVisibility] = useState(true);
 
     return (
-        <div className="main-page">
+        <div className="main-page" style={{ width: "100%", display: "flex", justifyContent: "center" }}>
             {loginFormVisibility ? (
                 <LoginForm setLoginFormVisibility={setLoginFormVisibility} setUser={setUser} />
             ) : (

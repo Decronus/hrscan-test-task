@@ -1,6 +1,10 @@
 import axiosInstance from "../utils/axios";
 
 class Queries {
+    getAllUsers() {
+        return axiosInstance.get("users");
+    }
+
     regUser(body) {
         return axiosInstance.post("reg", body);
     }
@@ -10,7 +14,7 @@ class Queries {
     }
 
     uploadPhoto(id, body) {
-        return axiosInstance.post(`upload/${id}`, body, { headers: { "Content-Type": "multipart/form-data" } });
+        return axiosInstance.patch(`upload/${id}`, body, { headers: { "Content-Type": "multipart/form-data" } });
     }
 }
 

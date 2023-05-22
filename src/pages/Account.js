@@ -1,4 +1,6 @@
-const Account = ({ setUser }) => {
+
+
+const Account = () => {
     return (
         <div className="account-page" style={{ display: "flex", justifyContent: "flex-start" }}>
             <h3>Account</h3>

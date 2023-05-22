@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema({
     gender: {
         type: String,
     },
-    birthday: {
+    birthdate: {
         type: String,
     },
     photoLink: {

@@ -6,6 +6,7 @@ import Queries from "../../services/queries.service";
 
 const RegForm = ({ setLoginFormVisibility }) => {
     const [file, setFile] = useState(null);
+    const [birthdate, setBirthdate] = useState(undefined);
     const uploadInputRef = useRef();
 
     const regUser = (values) => {
@@ -26,7 +27,7 @@ const RegForm = ({ setLoginFormVisibility }) => {
             password: values.password,
             name: values.name,
             gender: values.gender,
-            birthday: values.birthday,
+            birthdate: birthdate,
         };
 
         Queries.regUser(body)
@@ -49,7 +50,7 @@ const RegForm = ({ setLoginFormVisibility }) => {
         const file = event.target.files[0];
         setFile(file);
     };
-    console.log(file);
+    console.log(birthdate);
 
     return (
         <div className="reg-form-wrap">
@@ -79,8 +80,8 @@ const RegForm = ({ setLoginFormVisibility }) => {
                     </Radio.Group>
                 </Form.Item>
 
-                <Form.Item name="birthdate">
-                    <DatePicker placeholder="Date of birth" />
+                <Form.Item>
+                    <DatePicker placeholder="Date of birth" onChange={(date, dateString) => setBirthdate(dateString)} />
                 </Form.Item>
 
                 <Form.Item>

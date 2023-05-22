@@ -10,10 +10,14 @@
 
 .content-block {
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
     padding: 40px 20px;
 }
 
 .ant-picker {
     width: 100%;
+}
+
+h3 {
+    margin-bottom: 20px;
 }

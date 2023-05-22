@@ -1,22 +1,22 @@
 const User = require("../models/user");
 
-const getUsers = (req, res) => {
+const getAllUsers = (req, res) => {
     return User.find()
-        .then((data) => {
-            res.status(200).send(data);
+        .then((users) => {
+            res.status(200).send(users);
         })
-        .catch(() => res.status(500).send("Произошла ошибка сервера при выполнении запроса"));
+        .catch(() => res.status(500).send("Internal server error"));
 };
 
-const getUserById = (req, res) => {
-    const { id } = req.params;
+// const getUserById = (req, res) => {
+//     const { id } = req.params;
 
-    return User.findById(id)
-        .then((user) => {
-            res.status(200).send(user);
-        })
-        .catch(() => res.status(404).send("User not found"));
-};
+//     return User.findById(id)
+//         .then((user) => {
+//             res.status(200).send(user);
+//         })
+//         .catch(() => res.status(404).send("User not found"));
+// };
 
 const loginUser = async (req, res) => {
     const { email } = req.body;
@@ -71,7 +71,6 @@ const updateUser = (req, res) => {
 
 const uploadPhoto = (req, res) => {
     const id = req.params.id;
-    console.log("id", id);
     const update = { photoLink: req.file.path };
     return User.findByIdAndUpdate(id, update)
         .then(() => res.status(200).send("File uploaded"))
@@ -79,8 +78,7 @@ const uploadPhoto = (req, res) => {
 };
 
 module.exports = {
-    getUsers,
-    getUserById,
+    getAllUsers,
     createUser,
     loginUser,
     updateUser,

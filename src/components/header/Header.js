@@ -1,15 +1,13 @@
 import { Button } from "antd";
 import "./style.css";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Header = ({ user, setUser }) => {
     const navigate = useNavigate();
-    const location = useLocation();
 
     const logout = () => {
         localStorage.removeItem("user");
         setUser(undefined);
-        navigate(location.pathname);
     };
 
     return (
