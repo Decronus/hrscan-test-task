@@ -47,10 +47,10 @@ const updateUser = async (req, res) => {
     const user = await User.findByIdAndUpdate(id, req.body, { new: true });
     if (!user) {
         res.status(400).send("User with this id does not exists");
-    } else {
-        user.password = undefined;
-        res.status(200).send(user);
+        return;
     }
+    user.password = undefined;
+    res.status(200).send(user);
 };
 
 const uploadPhoto = async (req, res) => {
@@ -59,10 +59,10 @@ const uploadPhoto = async (req, res) => {
     const user = await User.findByIdAndUpdate(id, update, { new: true });
     if (!user) {
         res.status(400).send("User with this id does not exists");
-    } else {
-        user.password = undefined;
-        res.status(200).send(user);
+        return;
     }
+    user.password = undefined;
+    res.status(200).send(user);
 };
 
 module.exports = {
