@@ -5,16 +5,18 @@ const NotFound = () => {
     const navigate = useNavigate();
 
     return (
-        <Result
-            status="404"
-            title="404"
-            subTitle="Sorry, page does not exists"
-            extra={
-                <Button type="primary" onClick={() => navigate("/")}>
-                    На главную
-                </Button>
-            }
-        />
+        <div className="not-found-page">
+            <Result
+                status="404"
+                title="404"
+                subTitle="Sorry, page does not exists"
+                extra={
+                    <Button type="primary" onClick={() => navigate("/")}>
+                        На главную
+                    </Button>
+                }
+            />
+        </div>
     );
 };
 
