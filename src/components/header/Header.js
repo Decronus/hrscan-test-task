@@ -8,6 +8,7 @@ const Header = ({ user, setUser }) => {
     const logout = () => {
         localStorage.removeItem("user");
         setUser(undefined);
+        navigate("/");
     };
 
     return (
