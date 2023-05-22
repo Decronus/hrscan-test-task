@@ -1,72 +1,81 @@
 const User = require("../models/user");
 
-const getUsers = (request, response) => {
+const getUsers = (req, res) => {
     return User.find()
         .then((data) => {
-            response.status(200).send(data);
+            res.status(200).send(data);
         })
-        .catch((error) => response.status(500).send("Произошла ошибка сервера при выполнении запроса"));
+        .catch(() => res.status(500).send("Произошла ошибка сервера при выполнении запроса"));
 };
 
-const getUserById = (request, response) => {
-    const { id } = request.params;
+const getUserById = (req, res) => {
+    const { id } = req.params;
 
     return User.findById(id)
         .then((user) => {
-            response.status(200).send(user);
+            res.status(200).send(user);
         })
-        .catch(() => response.status(404).send("User not found"));
+        .catch(() => res.status(404).send("User not found"));
 };
 
-const loginUser = async (request, response) => {
-    const { email } = request.body;
-    const { password } = request.body;
+const loginUser = async (req, res) => {
+    const { email } = req.body;
+    const { password } = req.body;
     const user = await User.findOne({ email: email });
     if (!user) {
-        response.status(500).send("User with this email does not exists");
+        res.status(500).send("User with this email does not exists");
         return;
     }
     if (user.password !== password) {
-        response.status(500).send("Incorrect password");
+        res.status(500).send("Incorrect password");
         return;
     }
     user.password = undefined;
-    response.status(200).send(user);
+    res.status(200).send(user);
 };
 
-const createUser = async (request, response) => {
-    const { email } = request.body;
+const createUser = async (req, res) => {
+    const { email } = req.body;
     const user = await User.findOne({ email: email });
     if (user) {
-        response.status(409).send("User with this email already exists");
+        res.status(409).send("User with this email already exists");
         return;
     }
 
-    return User.create({ ...request.body })
+    return User.create({ ...req.body })
         .then((user) => {
-            response.status(201).send(user);
+            res.status(201).send(user);
         })
-        .catch(() => response.status(500).send("Internal server error"));
+        .catch(() => res.status(500).send("Internal server error"));
 };
 
-const updateUser = (request, response) => {
-    const { id } = request.params;
+const updateUser = (req, res) => {
+    const { id } = req.params;
 
-    return User.findByIdAndUpdate(id, { ...request.body })
+    return User.findByIdAndUpdate(id, { ...req.body })
         .then((user) => {
             if (user) {
                 const updatedUser = JSON.parse(JSON.stringify(user));
 
-                for (let key in request.body) {
-                    updatedUser[key] = request.body[key];
+                for (let key in req.body) {
+                    updatedUser[key] = req.body[key];
                     console.log(key);
                 }
-                response.status(200).send(updatedUser);
+                res.status(200).send(updatedUser);
             } else {
-                response.status(404).send("Пользователь с таким ID не найден");
+                res.status(404).send("Пользователь с таким ID не найден");
             }
         })
-        .catch((error) => response.status(500).send("Произошла ошибка сервера при выполнении запроса"));
+        .catch(() => res.status(500).send("Произошла ошибка сервера при выполнении запроса"));
+};
+
+const uploadPhoto = (req, res) => {
+    const id = req.params.id;
+    console.log("id", id);
+    const update = { photoLink: req.file.path };
+    return User.findByIdAndUpdate(id, update)
+        .then(() => res.status(200).send("File uploaded"))
+        .catch(() => res.status(500).send("Internal server error"));
 };
 
 module.exports = {
@@ -75,4 +84,5 @@ module.exports = {
     createUser,
     loginUser,
     updateUser,
+    uploadPhoto,
 };

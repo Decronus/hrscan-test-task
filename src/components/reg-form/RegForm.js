@@ -30,9 +30,17 @@ const RegForm = ({ setLoginFormVisibility }) => {
         };
 
         Queries.regUser(body)
-            .then((res) => console.log(res.data))
+            .then((res) => {
+                console.log(res.data);
+
+                if (file) {
+                    const form = new FormData();
+                    form.append("file", file);
+                    Queries.uploadPhoto(res.data._id, form);
+                }
+            })
             .catch((error) => {
-                message.error(error.response.data);
+                message.error(error.response?.data);
                 console.log(error);
             });
     };
@@ -41,6 +49,7 @@ const RegForm = ({ setLoginFormVisibility }) => {
         const file = event.target.files[0];
         setFile(file);
     };
+    console.log(file);
 
     return (
         <div className="reg-form-wrap">

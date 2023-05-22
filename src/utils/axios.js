@@ -1,7 +1,8 @@
 import axios from "axios";
+import { API_URL } from "./constants";
 
 const axiosInstance = axios.create({
-    baseURL: "http://127.0.0.1:3005/",
+    baseURL: API_URL,
     timeout: 0,
     headers: {
         Accept: "application/json",

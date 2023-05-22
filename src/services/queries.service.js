@@ -8,6 +8,10 @@ class Queries {
     loginUser(body) {
         return axiosInstance.post("login", body);
     }
+
+    uploadPhoto(id, body) {
+        return axiosInstance.post(`upload/${id}`, body, { headers: { "Content-Type": "multipart/form-data" } });
+    }
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export
